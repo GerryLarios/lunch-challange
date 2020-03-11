@@ -12,8 +12,13 @@ class SelectionsController < ApplicationController
   end
 
   def create
-    @selection = Selection.new(user_id: 1, meal_id: selection_params[:meal_id], month: selection_params[:month])
-    @selection.save ? redirect_to(selections_path) : render('new')
+    bunch_selections = []
+    params[:selection][:meal_id].each do |id| 
+       if id != ''
+         bunch_selections << { user_id: 1, meal_id: id, month: selection_params[:month] }
+       end
+    end
+    Selection.create(bunch_selections) ? redirect_to(selections_path) : render('new')
   end
 
   private

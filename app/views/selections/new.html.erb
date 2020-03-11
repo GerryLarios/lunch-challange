@@ -2,7 +2,7 @@
 <%= form_with(scope: :selection, url: selections_path) do |form| %>
   <p>
     <%= form.label(:meal_id) %><br>
-    <%= form.collection_select(:meal_id, Meal.all, :id, :name, { prompt: true }) %>
+    <%= form.collection_select(:meal_id, Meal.all, :id, :name, { prompt: true }, { multiple: true, size: 5 }) %>
   </p>
   <p>
     <%= form.label(:month) %><br>
