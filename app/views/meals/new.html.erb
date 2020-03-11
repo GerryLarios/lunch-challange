@@ -1,0 +1,15 @@
+<h1>add meal</h1>
+<%= form_with(scope: :meal, url: meals_path) do |form| %>
+  <p>
+    <%= form.label(:name) %><br>
+    <%= form.text_field(:name) %>
+  </p>
+  <p>
+    <%= form.label(:img) %><br>
+    <%= form.file_field(:img) %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'back', meals_path %>

@@ -1,0 +1,16 @@
+<h1>Selections</h1>
+<%= link_to('Meals', meals_path) %>
+<%= link_to('Select food', new_selection_path) %>
+<table>
+  <tr>
+    <th>Meals</th>
+    <th>Month</th>
+    <th colspan="2"></th>
+  </tr>
+  <% @selections.each do |selection| %>
+    <tr>
+      <td><%= Meal.find(selection.meal_id).name %></td>
+      <td><%= selection.month %></td>
+    </tr>
+  <% end %>
+</table>

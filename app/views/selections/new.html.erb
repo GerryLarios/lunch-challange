@@ -1,0 +1,27 @@
+<h1>Select your meal</h1>
+<%= form_with(scope: :selection, url: selections_path) do |form| %>
+  <p>
+    <%= form.label(:meal_id) %><br>
+    <%= form.collection_select(:meal_id, Meal.all, :id, :name, { prompt: true }) %>
+  </p>
+  <p>
+    <%= form.label(:month) %><br>
+    <%= form.select(:month, options_for_select(
+      [:january, 
+       :february, 
+       :march, 
+       :april, 
+       :may, 
+       :june, 
+       :july, 
+       :august, 
+       :september, 
+       :octuber, 
+       :november, 
+       :december])) %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'back', meals_path %>
