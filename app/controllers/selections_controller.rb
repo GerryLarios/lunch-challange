@@ -15,7 +15,7 @@ class SelectionsController < ApplicationController
     if valid_selection?
       Selection.create(selects_array) ? redirect_to(selections_path) : render('new')
     else
-      flash.new[:limit] = ['You reach the limit of meals by month'] 
+      flash.now[:limit] = ['You reach the limit of meals by month'] 
     end
   end
 
