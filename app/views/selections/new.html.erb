@@ -1,5 +1,12 @@
 <h1>Select your meal</h1>
 <%= form_with(scope: :selection, url: selections_path) do |form| %>
+  <% if flash.now[:limit] %>
+    <ul> 
+    <% flash.now[:limit].each do | msg | %>
+      <li> <%= msg %> </li>
+    <% end %>
+    </ul>
+  <% end %>
   <p>
     <%= form.label(:meal_id) %><br>
     <%= form.collection_select(:meal_id, Meal.all, :id, :name, { prompt: true }, { multiple: true, size: 5 }) %>
@@ -24,4 +31,4 @@
     <%= form.submit %>
   </p>
 <% end %>
-<%= link_to 'back', meals_path %>
+<%= link_to 'back', selections_path %>

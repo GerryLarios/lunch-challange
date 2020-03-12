@@ -1,5 +1,12 @@
-<h1>add meal</h1>
-<%= form_with(scope: :meal, url: meals_path) do |form| %>
+<h1>Add meal</h1>
+<%= form_with(scope: :meal, url: meals_path, local: true) do |form| %>
+  <% if @meal.errors.any? %>
+    <ul> 
+    <% @meal.errors.full_messages.each do | msg | %>
+      <li> <%= msg %> </li>
+    <% end %>
+    </ul>
+  <% end %>
   <p>
     <%= form.label(:name) %><br>
     <%= form.text_field(:name) %>

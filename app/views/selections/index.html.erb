@@ -1,16 +1,38 @@
 <h1>Selections</h1>
 <%= link_to('Meals', meals_path) %>
 <%= link_to('Select food', new_selection_path) %>
-<table>
-  <tr>
-    <th>Meals</th>
-    <th>Month</th>
-    <th colspan="2"></th>
-  </tr>
-  <% @selections.each do |selection| %>
+
+<%= form_with(url: selections_path, method: :get, local: true) do |form| %>
+  <%= form.label(:month) %>
+  <%= form.select(:month, options_for_select(
+    [:january, 
+     :february, 
+     :march, 
+     :april, 
+     :may, 
+     :june, 
+     :july, 
+     :august, 
+     :september, 
+     :octuber, 
+     :november, 
+     :december], @current_month)) %>
+  <%= form.submit "Search" %>
+<% end %>
+<% if @selections && @selections.length > 0 %>
+  <table>
     <tr>
-      <td><%= Meal.find(selection.meal_id).name %></td>
-      <td><%= selection.month %></td>
+      <th>Meals</th>
+      <th>Month</th>
+      <th colspan="2"></th>
     </tr>
-  <% end %>
-</table>
+    <% @selections.each do |selection| %>
+      <tr>
+        <td><%= selection.meal.name %></td>
+        <td><%= selection.month %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>You have no selections in this month</p>
+<% end %>
