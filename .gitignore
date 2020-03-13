@@ -31,3 +31,4 @@ db.env
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+public/coverage
