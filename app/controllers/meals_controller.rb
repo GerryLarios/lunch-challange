@@ -13,7 +13,7 @@ class MealsController < ApplicationController
 
   def create
     @meal = Meal.new(meal_params)
-    @meal.save ? redirect_to(meals_path) : render('new')
+    @meal.save ? redirect_to(meals_path) : render(:new)   
   end
 
   private 

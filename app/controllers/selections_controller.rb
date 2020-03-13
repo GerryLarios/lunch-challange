@@ -13,9 +13,11 @@ class SelectionsController < ApplicationController
 
   def create
     if valid_selection?
-      Selection.create(selects_array) ? redirect_to(selections_path) : render('new')
+      selections = Selection.create(selects_array)
+      selections.first.id.present? ? redirect_to(selections_path) : render(:new)
     else
-      flash.now[:limit] = ['You reach the limit of meals by month'] 
+      flash.now[:limit] = ['You reach the limit of meals by month']
+      render('new')
     end
   end
 
@@ -47,7 +49,7 @@ class SelectionsController < ApplicationController
 
   def selects_array
     array = []
-    meals_param.each { |id| array << { user_id: 1, meal_id: id, month: month_param } }
+    meals_param.each { |id| array << {meal_id: id, month: month_param } }
     array
   end
 end
