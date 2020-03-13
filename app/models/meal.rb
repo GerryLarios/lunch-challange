@@ -1,5 +1,7 @@
 class Meal < ApplicationRecord
   has_one_attached :img
   has_one :selection
-  validates_presence_of [:name]
+  validates :name, presence: true
+  validates :img, presence: true
+  validates_associated :selection
 end
