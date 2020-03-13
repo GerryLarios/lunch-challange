@@ -13,6 +13,18 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'simplecov'
+SimpleCov.start :rails do
+  filters.clear # This will remove the :root_filter and :bundler_filter that come via simplecov's defaults
+  add_filter '/spec/'
+  add_filter '/config/'
+  add_filter '/vendor/'
+
+  add_group "Models", "app/models"
+  add_group "Controllers", "app/controllers"
+  add_group "Lib", "app/lib"
+end
+SimpleCov.root('public')
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
