@@ -1,0 +1,10 @@
+<% if flash.now[:error] %>
+  <p><%= flash.now[:error]%></p>
+<% end %>
+<%= form_with(url: sessions_path, local: true) do | form |%>
+  <%= form.label(:email) %>
+  <%= form.email_field(:email) %>
+  <%= form.label(:password) %>
+  <%= form.password_field(:password) %>
+  <%= form.submit %>
+<% end %>

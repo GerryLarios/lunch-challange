@@ -10,6 +10,9 @@
   </head>
 
   <body>
+    <% if session[:user_id] %>
+      <%= render('layouts/navbar') %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
