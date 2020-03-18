@@ -1,6 +1,9 @@
 <h1>Add meal</h1>
-<%= form_with(scope: :meal, url: meals_path, local: true) do |form| %>
-  <% if @meal.errors.any? %>
+<%= form_with(scope: :meal, url: meals_path, local: true) do |form| %>  
+  <% if flash.now[:error] %>
+    <p> <%= flash.now[:error]%> </p>
+  <% end %>
+  <% if @meal.errors %>
     <ul> 
     <% @meal.errors.full_messages.each do | msg | %>
       <li> <%= msg %> </li>

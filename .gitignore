@@ -5,7 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 db.env
-.swp
+*.swp
 # Ignore bundler config.
 /.bundle
 

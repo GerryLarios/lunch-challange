@@ -1,5 +1,7 @@
 <h1>Meals</h1>
-<%= link_to('Create', new_meal_path) %>
+<% if @current_user.admin? %>
+  <%= link_to('Create', new_meal_path) %>
+<% end %>
 <%= link_to('My selections', selections_path) %>
 <table>
   <tr>

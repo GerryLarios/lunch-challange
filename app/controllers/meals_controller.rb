@@ -12,8 +12,13 @@ class MealsController < ApplicationController
   end
 
   def create
-    @meal = Meal.new(meal_params)
-    @meal.save ? redirect_to(meals_path) : render(:new)   
+    @meal = Meal.new(name: meal_params[:name], img: meal_params[:img], user: current_user)
+    if current_user.admin?
+      @meal.save ? redirect_to(meals_path) : render(:new)
+    else
+      flash.now[:error] = 'You are not allowed to perform this action.'
+      render(:new)
+    end
   end
 
   private 
