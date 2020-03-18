@@ -4,4 +4,5 @@ class Meal < ApplicationRecord
   validates :name, presence: true
   validates :img, presence: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'] 
   validates_associated :selection
+  belongs_to :user
 end

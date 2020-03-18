@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  root 'meals#index'
+  root 'sessions#new'
   resources :meals
   resources :selections
-  get 'coverage', to:'coverage#index' if Rails.env.development?
+  resources :sessions, only: [:new, :create]
+  get '/logout', to: 'sessions#logout'
+
+  get 'coverage', to: 'coverage#index' if Rails.env.development?
 end
