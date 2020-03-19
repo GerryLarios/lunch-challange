@@ -42,7 +42,7 @@ class SelectionsController < ApplicationController
   end
 
   def meals_param
-    @meals_param || selection_params[:meal_id].drop(1)
+    @meals_param ||= selection_params[:meal_id].drop(1)
   end
   
   def current_month
