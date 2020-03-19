@@ -6,7 +6,7 @@ class MealsController < ApplicationController
   end
 
   def show
-    @meal = meal_by_id 
+    @meal = Meal.find(params[:id])
   end
 
   def new
@@ -23,11 +23,11 @@ class MealsController < ApplicationController
   end
 
   def edit
-    @meal = meal_by_id
+    @meal = Meal.find(params[:id]) 
   end
 
   def update
-    @meal = meal_by_id
+    @meal = Meal.find(params[:id])
     if edit_allowed?(@meal) 
       @meal.update(meal_params) ? redirect_to(meals_path) : render(:edit)
     else
@@ -36,10 +36,6 @@ class MealsController < ApplicationController
   end
 
   private 
-
-  def meal_by_id
-    Meal.find(params[:id])
-  end
 
   def meal_params
     params.require(:meal).permit(:name, :img)

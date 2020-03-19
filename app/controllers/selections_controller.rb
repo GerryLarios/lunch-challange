@@ -14,12 +14,14 @@ class SelectionsController < ApplicationController
   end
 
   def create
-    @selection = Selection.new(month: month_param, meals: meals_selected, user: @current_user)
-    if valid_select?
-      @selection.save ? redirect_to(selections_path) : render(:new)
-    else
-      limit_message
-    end
+    binding.pry
+    @selection = Selection.new(month: selection_params[:month], meals: meals_selected, user: @current_user)
+    @selection.save ? redirect_to(selections_path) : render(:new)
+    # if valid_select?
+    #   @selection.save ? redirect_to(selections_path) : render(:new)
+    # else
+    #   limit_message
+    # end
   end
 
   def edit
@@ -28,38 +30,35 @@ class SelectionsController < ApplicationController
 
   def update
     @selection = Selection.find(params[:id])
-    if valid_select?
-      @selection.update(meals: meals_selected) ? redirect_to(selections_path) : render(:edit)
-    else
-      limit_message  
-    end
+    @selection.update(meals: meals_selected) ? redirect_to(selections_path) : render(:edit)
+    # if valid_select?
+    #   @selection.update(meals: meals_selected) ? redirect_to(selections_path) : render(:edit)
+    # else
+    #   limit_message
+    # end
   end
 
   private
-
-  def month_param
-    @month_param ||= selection_params[:month]
+  
+  def selection_params
+    params.require(:selection).permit!
   end
 
   def meals_param
-    @meals_param ||= selection_params[:meal_id].drop(1)
+    @meals_param ||= selection_params[:meals].drop(1)
   end
   
   def current_month
     @current_month ||= Date.today.strftime("%B").downcase
   end
 
-  def selection_params
-    params.require(:selection).permit!
-  end
-
   def meals_selected
     meals_param.map { |id| Meal.find(id) }
   end
 
-  def valid_select?
-    meals_param.length <= 5
-  end
+  # def valid_select?
+  #   meals_param.length <= 5
+  # end
 
   def limit_message
     flash.now[:limit] = 'You can only select 5 meals.'
