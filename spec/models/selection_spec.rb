@@ -2,29 +2,38 @@ require 'rails_helper'
 
 RSpec.describe Selection, type: :model do
   context 'validations' do
-
-    let(:meal) { create(:meal) } 
+    
+    let(:user) { create(:user, admin: true) }
     
     it 'is valid with valid attributes' do
-      selection = Selection.create(meal_id: meal.id, month: 'december')
+      selection = build(:selection_with_meals, user: user)
       expect(selection).to be_valid
     end
 
-    it 'is invalid without meal id' do
-      selection = Selection.create(meal_id: nil, month: 'december')
-      expect(selection).not_to be_valid 
-    end
-
-    it 'is invalid with month string empty' do
-      meal = Meal.create(name: 'Pozole')
-      selection = Selection.create(meal_id: meal.id, month: '')
-      expect(selection).not_to be_valid 
+    it 'is invalid without user' do
+      selection = build(:selection, user: nil)
+      expect(selection).not_to be_valid
     end
 
     it 'is invalid without month' do
-      meal = Meal.create(name: 'Pozole')
-      selection = Selection.create(meal_id: meal.id, month: nil)
-      expect(selection).not_to be_valid 
+      selection = build(:selection, month: nil)
+      expect(selection).not_to be_valid
+    end
+
+    it 'is invalid with month string empty' do
+      selection = build(:selection, month: '')
+      expect(selection).not_to be_valid
+    end
+
+    it 'is invalid without meals' do
+      selection = build(:selection)
+      expect(selection).not_to be_valid
+    end
+
+    it 'is invalid with more than five meals' do
+      selection = build(:selection_with_meals, user: user)
+      selection.meals << create(:meal, user: user)
+      expect(selection).not_to be_valid
     end
   end
 end

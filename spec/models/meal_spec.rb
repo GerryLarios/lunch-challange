@@ -17,5 +17,14 @@ RSpec.describe Meal, type: :model do
     it 'is invalid without image' do
       expect(Meal.create(name: 'Tacos de asada', img: nil)).not_to be_valid
     end
+    
+    it 'is invalid without image extension' do
+      img = Rack::Test::UploadedFile.new(Rails.root.join('db.env'))
+      expect(Meal.create(name: 'Tacos al pastor', img: img)).not_to be_valid
+    end
+
+    it 'is invalid without user' do
+      expect(Meal.create(name: 'Pozole')).not_to be_valid
+    end
   end
 end
