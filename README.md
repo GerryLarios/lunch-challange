@@ -4,3 +4,7 @@
 - [x] As a user I would like to be able to create a new meal entry with its name and its own image, e.g. Tacos dorados de papa.
 - [x] As a user I would like to be able to create my five selected meals for the month, using the meals that already exists.
 - [x] As a user I would like to be able to view all my peers selected meals for a given month (default to this month).
+- [x] As a user I would like to post only image files (no Urls) at the meal creation (also update), and those files to be validated as images by the browser and then by the server before storing them.
+- [x] As a system I would like to assign an admin role to a user.
+- [x] As an admin and the owner of a meal I would like to update it. No other user should be able to do it.
+- [x] As a user I would like to edit only my last month meals selection (current month).

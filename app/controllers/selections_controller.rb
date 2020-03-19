@@ -1,6 +1,8 @@
 class SelectionsController < ApplicationController
+  helper_method :list_months
+
   def index
-    @selections = Selection.where('month = ?', params[:month] || current_month)
+    @selections = Selection.enable(@current_user.id, params[:month] || current_month)
   end
 
   def show
@@ -12,12 +14,24 @@ class SelectionsController < ApplicationController
   end
 
   def create
-    if valid_selection?
-      selections = Selection.create(selects_array)
-      selections.first.id.present? ? redirect_to(selections_path) : render(:new)
+    @selection = Selection.new(month: month_param, meals: meals_selected, user: @current_user)
+    if valid_select?
+      @selection.save ? redirect_to(selections_path) : render(:new)
     else
-      flash.now[:limit] = ['You reach the limit of meals by month']
-      render('new')
+      limit_message
+    end
+  end
+
+  def edit
+    @selection = selection_by_id
+  end
+
+  def update
+    @selection = selection_by_id
+    if valid_select?
+      @selection.update(meals: meals_selected) ? redirect_to(selections_path) : render(:edit)
+    else
+      limit_message  
     end
   end
 
@@ -28,28 +42,35 @@ class SelectionsController < ApplicationController
   end
 
   def meals_param
-    @meals_param || params[:selection][:meal_id].drop(1)
+    @meals_param || selection_params[:meal_id].drop(1)
+  end
+  
+  def current_month
+    @current_month ||= Date.today.strftime("%B").downcase
   end
 
   def selection_params
-    params.require(:selection).permit(:selection, :month, :meal_id)
+    params.require(:selection).permit!
+  end
+
+  def meals_selected
+    meals_param.map { |id| Meal.find(id) }
   end
 
   def selection_by_id
     Selection.find(params[:id])
   end
 
-  def current_month
-    @current_month ||= Date.today.strftime("%B").downcase
+  def valid_select?
+    meals_param.length <= 5
   end
 
-  def valid_selection?
-   (Selection.where('month = ?', month_param).length + (meals_param.length)) <= 5
+  def limit_message
+    flash.now[:limit] = 'You can only select 5 meals.'
+    render(:edit)
   end
 
-  def selects_array
-    array = []
-    meals_param.each { |id| array << {meal_id: id, month: month_param } }
-    array
+  def list_months
+    [:january, :february, :march, :april, :may, :june, :july, :august, :september, :octuber, :november, :december]
   end
 end

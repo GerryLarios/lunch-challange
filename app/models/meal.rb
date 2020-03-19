@@ -1,8 +1,9 @@
 class Meal < ApplicationRecord
-  has_one_attached :img
-  has_one :selection
-  validates :name, presence: true
-  validates :img, presence: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'] 
-  validates_associated :selection
   belongs_to :user
+  has_one_attached :img
+  has_and_belongs_to_many :selections
+
+  validates :name, presence: true
+  validates :img, presence: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
+
 end

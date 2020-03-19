@@ -1,0 +1,24 @@
+<%= form_with(model: @meal, local: true) do |form| %>  
+  <% if flash.now[:error] %>
+    <p> <%= flash.now[:error]%> </p>
+  <% end %>
+  <% if @meal.errors %>
+    <ul> 
+    <% @meal.errors.full_messages.each do | msg | %>
+      <li> <%= msg %> </li>
+    <% end %>
+    </ul>
+  <% end %>
+  <p>
+    <%= form.label(:name) %><br>
+    <%= form.text_field(:name) %>
+  </p>
+  <p>
+    <%= form.label(:img) %><br>
+    <%= form.file_field(:img) %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'back', meals_path %>

@@ -4,35 +4,23 @@
 
 <%= form_with(url: selections_path, method: :get, local: true) do |form| %>
   <%= form.label(:month) %>
-  <%= form.select(:month, options_for_select(
-    [:january, 
-     :february, 
-     :march, 
-     :april, 
-     :may, 
-     :june, 
-     :july, 
-     :august, 
-     :september, 
-     :octuber, 
-     :november, 
-     :december], @current_month)) %>
+  <%= form.select(:month, options_for_select(list_months, @current_month)) %>
   <%= form.submit "Search" %>
 <% end %>
+
 <% if @selections && @selections.length > 0 %>
-  <table>
-    <tr>
-      <th>Meals</th>
-      <th>Month</th>
-      <th colspan="2"></th>
-    </tr>
-    <% @selections.each do |selection| %>
-      <tr>
-        <td><%= selection.meal.name %></td>
-        <td><%= selection.month %></td>
-      </tr>
+  <% @selections.each do |selection| %>
+    <br>
+    <strong><%= selection.month%></strong>
+    <%= button_to('Edit', { action: 'edit', id: selection.id }, method: :get ) %>
+    <% if selection.meals.length > 0%>
+      <ul>
+        <% selection.meals.each do |meal| %>
+          <li><%= meal.name%></li>
+        <% end %>
+      </ul>
     <% end %>
-  </table>
+  <% end %>
 <% else %>
-  <p>You have no selections in this month</p>
+  <p>You have no selections.</p>
 <% end %>

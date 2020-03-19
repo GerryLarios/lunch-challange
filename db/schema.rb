@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_192743) do
+ActiveRecord::Schema.define(version: 2020_03_18_211628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,12 +44,19 @@ ActiveRecord::Schema.define(version: 2020_03_17_192743) do
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 
+  create_table "meals_selections", id: false, force: :cascade do |t|
+    t.bigint "selection_id", null: false
+    t.bigint "meal_id", null: false
+    t.index ["meal_id"], name: "index_meals_selections_on_meal_id"
+    t.index ["selection_id"], name: "index_meals_selections_on_selection_id"
+  end
+
   create_table "selections", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "meal_id"
     t.string "month"
-    t.index ["meal_id"], name: "index_selections_on_meal_id"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_selections_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,4 +69,5 @@ ActiveRecord::Schema.define(version: 2020_03_17_192743) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "meals", "users"
+  add_foreign_key "selections", "users"
 end

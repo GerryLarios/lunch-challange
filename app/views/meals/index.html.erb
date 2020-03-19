@@ -5,12 +5,20 @@
 <%= link_to('My selections', selections_path) %>
 <table>
   <tr>
+    <th>action</th>
     <th>name</th>
     <th>photo</th>
-    <th colspan="2"></th>
+    <th colspan="3"></th>
   </tr>
   <% @meals.each do |meal| %>
     <tr>
+      <td>
+        <%= button_to(
+          'Edit', 
+          {action: 'edit', id: meal.id}, 
+          method: :get, 
+          disabled: !edit_allowed?(meal))%>
+      </td>
       <td><%= meal.name %></td>
       <td><%= image_tag(meal.img) %></td>
     </tr>

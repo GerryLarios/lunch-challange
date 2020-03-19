@@ -1,0 +1,21 @@
+<%= form_with(model: @selection, local: true) do |form| %>
+  <% if flash.now[:limit] %>
+    <p><%= flash.now[:limit]%></p>
+  <% end %>
+  <p>
+    <%= form.label(:month) %>
+    <%= form.select(:month, options_for_select(list_months, @selection.month)) %>
+  </p>
+  <p>
+    <%= form.label(:meal_id) %> <br>
+    <%= form.collection_select(
+      :meal_id, 
+      Meal.all, :id, :name,
+      {prompt: false, selected: @selection.meals.map(&:id)}, 
+      {multiple: true, size: 5})%>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'back', selections_path %>
