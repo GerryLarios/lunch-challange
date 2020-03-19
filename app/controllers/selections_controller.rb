@@ -6,7 +6,7 @@ class SelectionsController < ApplicationController
   end
 
   def show
-    @selection = selection_by_id
+    @selection = Selection.find(params[:id]) 
   end
 
   def new
@@ -23,11 +23,11 @@ class SelectionsController < ApplicationController
   end
 
   def edit
-    @selection = selection_by_id
+    @selection = Selection.find(params[:id])
   end
 
   def update
-    @selection = selection_by_id
+    @selection = Selection.find(params[:id])
     if valid_select?
       @selection.update(meals: meals_selected) ? redirect_to(selections_path) : render(:edit)
     else
@@ -55,10 +55,6 @@ class SelectionsController < ApplicationController
 
   def meals_selected
     meals_param.map { |id| Meal.find(id) }
-  end
-
-  def selection_by_id
-    Selection.find(params[:id])
   end
 
   def valid_select?
