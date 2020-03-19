@@ -7,11 +7,11 @@
     <%= form.select(:month, options_for_select(list_months, @selection.month)) %>
   </p>
   <p>
-    <%= form.label(:meal_id) %> <br>
+    <%= form.label(:meals) %> <br>
     <%= form.collection_select(
-      :meal_id, 
-      Meal.all, :id, :name,
-      {prompt: false, selected: @selection.meals.map(&:id)}, 
+      :meals, 
+      list_meals, :id, :name,
+      {prompt: false, selected: @selection.meals.ids}, 
       {multiple: true, size: 5})%>
   </p>
   <p>

@@ -1,5 +1,5 @@
 class SelectionsController < ApplicationController
-  helper_method :list_months
+  helper_method [:list_months, :list_meals]
 
   def index
     @selections = Selection.enable(@current_user.id, params[:month] || current_month)
@@ -64,6 +64,10 @@ class SelectionsController < ApplicationController
   def limit_message
     flash.now[:limit] = 'You can only select 5 meals.'
     render(:edit)
+  end
+
+  def list_meals
+    Meal.all
   end
 
   def list_months
