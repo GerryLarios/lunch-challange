@@ -43,7 +43,7 @@ class MealsController < ApplicationController
 
   def not_allowed_message
     flash.now[:error] = 'You are not allowed to perform this action.'
-    render(:new)
+    render(:index)
   end
 
   def edit_allowed?(meal)
