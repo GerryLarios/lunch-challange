@@ -14,14 +14,8 @@ class SelectionsController < ApplicationController
   end
 
   def create
-    binding.pry
     @selection = Selection.new(month: selection_params[:month], meals: meals_selected, user: @current_user)
     @selection.save ? redirect_to(selections_path) : render(:new)
-    # if valid_select?
-    #   @selection.save ? redirect_to(selections_path) : render(:new)
-    # else
-    #   limit_message
-    # end
   end
 
   def edit
@@ -31,11 +25,6 @@ class SelectionsController < ApplicationController
   def update
     @selection = Selection.find(params[:id])
     @selection.update(meals: meals_selected) ? redirect_to(selections_path) : render(:edit)
-    # if valid_select?
-    #   @selection.update(meals: meals_selected) ? redirect_to(selections_path) : render(:edit)
-    # else
-    #   limit_message
-    # end
   end
 
   private
@@ -54,15 +43,6 @@ class SelectionsController < ApplicationController
 
   def meals_selected
     meals_param.map { |id| Meal.find(id) }
-  end
-
-  # def valid_select?
-  #   meals_param.length <= 5
-  # end
-
-  def limit_message
-    flash.now[:limit] = 'You can only select 5 meals.'
-    render(:edit)
   end
 
   def list_meals
