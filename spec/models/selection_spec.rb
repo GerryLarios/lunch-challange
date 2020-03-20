@@ -11,8 +11,7 @@ RSpec.describe Selection, type: :model do
     end
 
     it 'is invalid without user' do
-      selection = build(:selection, user: nil)
-      expect(selection).not_to be_valid
+      expect(Selection.new(month: 'march', user: nil)).not_to be_valid
     end
 
     it 'is invalid without month' do
@@ -26,7 +25,9 @@ RSpec.describe Selection, type: :model do
     end
 
     it 'is invalid without meals' do
-      selection = build(:selection)
+      selection = build(:selection, user: user)
+      selection.meals = []
+      selection.save
       expect(selection).not_to be_valid
     end
 
