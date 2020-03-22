@@ -32,3 +32,4 @@ db.env
 yarn-debug.log*
 .yarn-integrity
 public/coverage
+local_env.yml
