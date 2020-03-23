@@ -3,7 +3,7 @@ class AdminMailer < ApplicationMailer
   
   def selection_completed
     @user_email = params[:selection].user.email
-    @selection_url = params[:selection_url]
+    @url = params[:url]
     mail(subject: "#{@user_email} has selected their meals.")
   end
 end
