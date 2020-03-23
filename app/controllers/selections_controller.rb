@@ -1,5 +1,5 @@
 class SelectionsController < ApplicationController
-  helper_method [:list_months, :list_meals]
+  helper_method [:list_months]
 
   def index
     @selections = Selection.enable(@current_user.id, params[:month] || current_month)
@@ -10,15 +10,24 @@ class SelectionsController < ApplicationController
   end
 
   def new
+    list_meals
     @selection = Selection.new
   end
 
   def create
     @selection = Selection.new(month: selection_params[:month], meals: meals_selected, user: @current_user)
-    @selection.save ? redirect_to(selections_path) : render(:new)
+    if @selection.save
+      if @selection.meals.length == 5
+        AdminMailer.with(selection: @selection, url: url_for(@selection)).selection_completed.deliver_later
+      end
+      redirect_to(selections_path)
+    else
+      render(:new)
+    end
   end
 
   def edit
+    list_meals
     @selection = Selection.find(params[:id])
   end
 
@@ -40,16 +49,17 @@ class SelectionsController < ApplicationController
   def current_month
     @current_month ||= Date.today.strftime("%B").downcase
   end
+  
+  def list_meals
+    @meals ||= Meal.all
+  end
 
   def meals_selected
     meals_param.map { |id| Meal.find(id) }
   end
 
-  def list_meals
-    Meal.all
-  end
-
   def list_months
     [:january, :february, :march, :april, :may, :june, :july, :august, :september, :octuber, :november, :december]
   end
+
 end

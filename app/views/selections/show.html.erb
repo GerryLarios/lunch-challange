@@ -1,0 +1,10 @@
+<h1>Meals selection of<%= @selection.user.email%></h1>
+<p><%= @selection.month %></p>
+
+<ul>
+  <% @selection.meals.each do |meal|%>
+    <li><%= meal.name%></li>
+  <% end %>
+</ul>
+
+<%= link_to('Meals', meals_path)%>
