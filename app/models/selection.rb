@@ -14,6 +14,10 @@ class Selection < ApplicationRecord
     errors.add(:meals, :invalid, message: "Only #{MEALS_ALLOWED} can be selected") unless number_meals_valid? 
   end
 
+  def self.meals_allowed
+    MEALS_ALLOWED 
+  end
+
   private
 
   def number_meals_valid?

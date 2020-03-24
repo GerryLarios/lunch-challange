@@ -17,9 +17,7 @@ class SelectionsController < ApplicationController
   def create
     @selection = Selection.new(month: selection_params[:month], meals: meals_selected, user: @current_user)
     if @selection.save
-      if @selection.meals.length == 5
-        AdminMailer.with(selection: @selection, url: url_for(@selection)).selection_completed.deliver_later
-      end
+      SelectionCompletedEmailService.new(@selection, url_for(@selection)).send_to_admin
       redirect_to(selections_path)
     else
       render(:new)
