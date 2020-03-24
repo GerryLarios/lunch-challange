@@ -61,5 +61,4 @@ class SelectionsController < ApplicationController
   def list_months
     [:january, :february, :march, :april, :may, :june, :july, :august, :september, :octuber, :november, :december]
   end
-
 end
