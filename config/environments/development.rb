@@ -63,19 +63,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {
     host: ENV['HTTP_HOST'] || '127.0.0.1:3000'
   }
-    
+
+  config.active_job.queue_adapter = :sidekiq
+
   # config to sent emails with gmail
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address: 'smtp.gmail.com',
-  #   port: 587,
-  #   domain: 'gmail.com',
-  #   user_name: ENV['GMAIL_USER_NAME'],
-  #   password: ENV['GMAIL_PASSWORD'],
-  #   authentication: 'plain',
-  #   enable_starttls_auto: true
-  # }
   config.action_mailer.default_options = { from: ENV['APP_EMAIL'] }
 end
