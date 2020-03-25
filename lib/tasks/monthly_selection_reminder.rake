@@ -2,5 +2,6 @@ desc 'Send an email to all users reminding them to select their meails'
 
 task :selection_reminder => :environment do
   puts 'Sending the reminder...'
-  SelectionReminderEmailService.new.send
+  SelectionReminderEmailJob.perform_later
+  # SelectionReminderEmailService.new.send
 end
