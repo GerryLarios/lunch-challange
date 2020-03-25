@@ -44,6 +44,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'simplecov', require: false, group: :test
+  gem 'rspec-sidekiq'
 end
 
 group :development do

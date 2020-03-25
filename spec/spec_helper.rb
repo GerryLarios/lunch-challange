@@ -28,6 +28,10 @@ SimpleCov.start :rails do
   add_group "Lib", "app/lib"
 end
 SimpleCov.root('public')
+
+
+# Sidekiq on testing
+require 'sidekiq/testing'
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
