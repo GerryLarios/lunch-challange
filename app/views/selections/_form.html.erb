@@ -10,7 +10,7 @@
     <%= form.label(:meals) %> <br>
     <%= form.collection_select(
       :meals, 
-      @meals, :id, :name,
+      list_meals, :id, :name,
       {prompt: false, selected: @selection.meals.ids}, 
       {multiple: true, size: 5})%>
   </p>

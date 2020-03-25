@@ -1,11 +1,10 @@
 class SelectionCompletedEmailService
-  def initialize(selection, url)
+  def initialize(selection)
     @selection = selection
-    @url = url
   end
 
   def send_to_admin
-    AdminMailer.with(selection: @selection, url: @url).selection_completed.deliver_later if completed?
+    AdminMailer.with(selection: @selection).selection_completed.deliver if completed?
   end
   
   private

@@ -1,5 +1,5 @@
 class SelectionsController < ApplicationController
-  helper_method [:list_months]
+  helper_method [:list_months, :list_meals]
 
   def index
     @selections = Selection.enable(@current_user.id, params[:month] || current_month)
@@ -17,8 +17,6 @@ class SelectionsController < ApplicationController
   def create
     @selection = Selection.new(month: selection_params[:month], meals: meals_selected, user: @current_user)
     if @selection.save
-      SelectionCompletedEmailJob.perform_later(@selection, url_for(@selection))
-      # SelectionCompletedEmailService.new(@selection, url_for(@selection)).send_to_admin
       redirect_to(selections_path)
     else
       render(:new)

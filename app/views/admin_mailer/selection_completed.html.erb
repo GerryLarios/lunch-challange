@@ -5,6 +5,7 @@
   </head>
   <body>
     <h1>Here is the meals selection of <%= @user_email %></h1>
-    <p>Click here to see the meals: <%= @url %></p>
+    <p>Click here to see the meals</p>
+    <p><%= link_to('meals', @selection)%></p>
   </body>
 </html>

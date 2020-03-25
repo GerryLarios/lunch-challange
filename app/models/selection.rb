@@ -8,6 +8,8 @@ class Selection < ApplicationRecord
   validates :meals, presence: true
   validate :check_meals_number
 
+  after_commit :send_admin_email, on: [:create, :update]
+
   scope :enable, -> (user_id, month) { where('user_id = ? AND month = ?', user_id, month) }
 
   def check_meals_number
@@ -16,6 +18,10 @@ class Selection < ApplicationRecord
 
   def self.meals_allowed
     MEALS_ALLOWED 
+  end
+
+  def send_admin_email
+    SelectionCompletedEmailJob.perform_now(self)
   end
 
   private
