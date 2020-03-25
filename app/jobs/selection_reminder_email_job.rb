@@ -1,5 +1,5 @@
 class SelectionReminderEmailJob < ApplicationJob
-  queue_as :default
+  queue_as :emails
 
   def perform(*args)
     SelectionReminderEmailService.new.send
