@@ -1,0 +1,47 @@
+env:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWROD: "" 
+  POSTGRES_DB: postgres
+
+name: Ruby on Rails Rspecs Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    services:
+      postgres:
+        image: postgres:latest
+        ports: 
+          - 5432:5432
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.x
+    - name: Install Postgres client
+      run: |
+        sudo apt-get install libpq-dv
+    - name: Install dependencies
+      run: |
+        gem install bundle
+        bundle install
+    - name: Create database
+      run: |
+        rails db:create RAILS_ENV=test
+        rails db:migrate RAILS_ENV=test
+    - name: Run tests
+      run: |
+        rspec
+    - name: Upload coverage results
+      uses: actions/upload-artifact@master
+      if: always()
+      with:
+        name: coverage-report
+        path: public/coverage 
