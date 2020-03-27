@@ -1,9 +1,4 @@
-env:
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWROD: "" 
-  POSTGRES_DB: postgres
-
-name: Ruby on Rails Rspecs Tests
+name: Ruby on Rails Rspec Tests
 
 on:
   push:
@@ -13,35 +8,44 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest-
     services:
       postgres:
         image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWROD: postgres 
+          POSTGRES_DB: postgres
         ports: 
-          - 5432:5432
+          - 5432/tcp
+        options: -health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby 2.7
+    - name: Checkpit repository
+      uses: actions/checkout@v2
+
+    - name: Install ruby version
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.7.x
+        ruby-version: 2.7.0
+    
     - name: Install Postgres client
-      run: |
-        sudo apt-get install libpq-dev
-    - name: Install dependencies
-      run: |
-        gem install bundle
-        bundle install
+      run: sudo apt-get install libpq-dev -y
+
     - name: Create database
+      env:
+        POSTGRES_HOST: localhost
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWROD: postgres
       run: |
-        rails db:create RAILS_ENV=test
-        rails db:migrate RAILS_ENV=test
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bin/rails db:setup
+        yarn install --check-files
+        bundle exec rails webpacker:compile
+        
     - name: Run tests
-      run: |
-        rspec
-    - name: Upload coverage results
-      uses: actions/upload-artifact@master
-      if: always()
-      with:
-        name: coverage-report
-        path: public/coverage 
+      env:
+        POSTGRES_HOST: localhost
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWROD: postgres
+      run: rspec
