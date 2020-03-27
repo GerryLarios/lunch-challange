@@ -27,7 +27,7 @@ jobs:
         ruby-version: 2.7.x
     - name: Install Postgres client
       run: |
-        sudo apt-get install libpq-dv
+        sudo apt-get install libpq-dev
     - name: Install dependencies
       run: |
         gem install bundle
