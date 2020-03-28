@@ -38,8 +38,8 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
+        yarn install --check-file
         bin/rails db:setup
-        yarn install --check-files
         bundle exec rails webpacker:compile
         
     - name: Run tests
