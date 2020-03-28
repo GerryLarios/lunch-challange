@@ -45,6 +45,7 @@ group :development, :test do
   gem 'faker'
   gem 'simplecov', require: false, group: :test
   gem 'rspec-sidekiq', require: false, group: :test
+  gem 'knapsack_pro'
 end
 
 group :development do
