@@ -1,5 +1,6 @@
 # LUNCH CHALLANGE - TANGO
 
+![tests](https://github.com/GerryLarios/lunch-challange/workflows/tests/badge.svg)
 [![Knapsack Pro Parallel CI builds for RSpec tests](https://img.shields.io/badge/Knapsack%20Pro-Parallel%20%2F%20RSpec%20tests-%230074ff)](https://knapsackpro.com/dashboard/organizations/936/projects/892/test_suites/1284/builds?utm_campaign=organization-id-936&utm_content=test-suite-id-1284&utm_medium=readme&utm_source=knapsack-pro-badge&utm_term=project-id-892)
 
 ### Lunch 5 meals monthly selection (César, Gerardo, Rodrigo)
@@ -14,3 +15,10 @@
 - [x] As a user I would like to receive an email every 20th day of the month so I can select my meals for the next month.
 - [x] As a system I would like to have a mailer service for every action that requires to send email.
 - [x] As a system I would like to executed as a background job every email service.
+- [x] As a project I would like to be tested through a GitHub workflow for:
+  - Master Push
+  - Pull Request
+- [x] As a project I would like to show the test suite result in my README.md
+- [x] As a project I would like to be deployed to through a GitHub workflow for:
+  - Master Push if test suite has succeeded.
+

@@ -1,22 +1,18 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
-  port: 5432
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PASSWORD'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: lunch_challange_development
+  database: lunch_project_development
 
 test:
   <<: *default
-  database: lunch_challange_test
+  database: lunch_project_test
 
 production:
   <<: *default
-  database: lunch_challange_production
-  username: lunch_challange
-  password: <%= ENV['LUNCH_CHALLANGE_DATABASE_PASSWORD'] %>
+  database: lunch_project_production
+  username: lunch_project
+  password: <%= ENV['LUNCH_PROJECT_DATABASE_PASSWORD'] %>
