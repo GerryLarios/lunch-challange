@@ -3,7 +3,7 @@
 ![tests](https://github.com/GerryLarios/lunch-challange/workflows/tests/badge.svg)
 [![Knapsack Pro Parallel CI builds for RSpec tests](https://img.shields.io/badge/Knapsack%20Pro-Parallel%20%2F%20RSpec%20tests-%230074ff)](https://knapsackpro.com/dashboard/organizations/936/projects/892/test_suites/1284/builds?utm_campaign=organization-id-936&utm_content=test-suite-id-1284&utm_medium=readme&utm_source=knapsack-pro-badge&utm_term=project-id-892)
 
-### Lunch 5 meals monthly selection (César, Gerardo, Rodrigo)
+### Lunch 5 meals monthly selection
 - [x] As a user I would like to be able to create a new meal entry with its name and its own image, e.g. Tacos dorados de papa.
 - [x] As a user I would like to be able to create my five selected meals for the month, using the meals that already exists.
 - [x] As a user I would like to be able to view all my peers selected meals for a given month (default to this month).
