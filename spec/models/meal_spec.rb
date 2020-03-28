@@ -19,7 +19,7 @@ RSpec.describe Meal, type: :model do
     end
     
     it 'is invalid without image extension' do
-      img = Rack::Test::UploadedFile.new(Rails.root.join('db.env'))
+      img = Rack::Test::UploadedFile.new(Rails.root.join('README.md'))
       expect(Meal.create(name: 'Tacos al pastor', img: img)).not_to be_valid
     end
 
